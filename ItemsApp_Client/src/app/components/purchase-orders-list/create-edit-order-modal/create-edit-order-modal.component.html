@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+        <label class="control-label">Order Name</label>
+        <input [(ngModel)]="purnchaseOrderData.name" type="text" name="Name" class="form-control">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+        <label class="control-label">Item Name</label>
+        <input type="text" name="ItemName" class="form-control"  [(ngModel)]="newOrderItem.name">
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+        <label class="control-label">Item Price</label>
+        <input type="number" name="ItemPrice" class="form-control" [(ngModel)]="newOrderItem.price">
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label class="control-label" style="opacity: 0;">Create Item</label>
+        <button [disabled]="purnchaseOrderData?.orderItems?.length >= 10 || !newOrderItem.price || !newOrderItem.name" (click)="addItem()" type="submit" class="btn btn-primary form-control">
+            Add Item
+        </button>
+    </div>
+</div>
+</div>
+<div class="row" style="height: 60%;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item Name</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of purnchaseOrderData.orderItems; let index = index">
+        <th scope="row">{{ index + 1 }}</th>
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}</td>
+        <td>
+          <div class="text-center">
+            <button (click)="deleteItem(item.name)" mat-raised-button color="accent">Delete Item</button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="!purnchaseOrderData.orderItems || !purnchaseOrderData.orderItems.length">
+        <td class="text-center" colspan="3">No Data Yet</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div style="bottom: 10px; position: fixed;" class="row" style="height: 20%;">
+  <div class="col-md-10"></div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <label class="control-label" style="opacity: 0;">Cancel</label>
+      <button (click)="close()" type="submit" class="btn btn-primary form-control">
+          Cancel
+      </button>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <div class="form-group">
+      <label class="control-label" style="opacity: 0;">Save</label>
+      <button [disabled]="!purnchaseOrderData.name || !purnchaseOrderData.orderItems || !purnchaseOrderData.orderItems.length" (click)="save()" type="submit" class="btn btn-primary form-control">
+          Save
+      </button>
+    </div>
+  </div>
+</div>
